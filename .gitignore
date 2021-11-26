@@ -1,0 +1,2 @@
+go-app/crypto/*
+docker/mysql/mysql_data/*
