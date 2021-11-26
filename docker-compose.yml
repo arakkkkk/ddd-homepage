@@ -1,0 +1,85 @@
+version: '3'
+services:
+  react:
+    build:
+      context: .
+      dockerfile: ./docker/react/Dockerfile
+    container_name: react_container
+    restart: always
+    tty: true
+    volumes:
+      - ./react-app:/app/react
+    command: sh -c "cd /app/react/react-app && yarn start"
+    ports:
+      - 3000:3000
+
+
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: paswd
+      MYSQL_DATABASE: go_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: paswd
+    volumes:
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+      - ./docker/mysql/mysql_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    links:
+      - go
+
+
+  go:
+    build:
+      context: .
+      dockerfile: ./docker/golang/Dockerfile
+    container_name: go_container
+    ports:
+      - 8000:8000
+    tty: true
+    stdin_open: true
+    restart: always
+    environment:
+      MYSQL_DATABASE: go_database
+      MYSQL_HOST: mysql_container
+      MYSQL_USER: user
+      MYSQL_PASSWORD: paswd
+    volumes:
+      - ./go-app/images:/go/src/go-app/images
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: nginx_container
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+
+
+  phpmyadmin:
+    build:
+      context: .
+      dockerfile: ./docker/phpadmin/Dockerfile
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=user
+      - PMA_PASSWORD=paswd
+    links:
+      - mysql
+    ports:
+      - 1234:80
+    volumes:
+      - /sessions
