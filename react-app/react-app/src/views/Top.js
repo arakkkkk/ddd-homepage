@@ -1,6 +1,6 @@
 import "static/css/top.css";
 
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "fullpage.js/vendors/scrolloverflow";
 import ReactFullpage from "@fullpage/react-fullpage";
 
@@ -164,7 +164,22 @@ class FourthSlide extends React.Component {
     }
 }
 
-export const Top = () => (
+const LoadingPage = () => (
+    <div class="toppage">
+        <ReactFullpage
+            licenseKey={"C5C881D6-81D74A73-AB857381-6D757637"}
+            render={({ state, fullpageApi }) => {
+                return (
+                    <div className="section" style={{ backgroundColor: "#583F2A" }}>
+                        <img src="images/maman1.gif" className="img-fluid" style={{ width: "40vw" }} />
+                    </div>
+                );
+            }}
+        />
+    </div>
+);
+
+const TopPage = () => (
     <div class="toppage">
         <ReactFullpage
             licenseKey={"C5C881D6-81D74A73-AB857381-6D757637"}
@@ -181,4 +196,15 @@ export const Top = () => (
         />
     </div>
 );
+
+const Top = () => {
+    const [Loading, setLoading] = useState(true);
+    setTimeout(() => setLoading(false), 2000);
+
+    if (Loading) {
+        return <LoadingPage />;
+    } else {
+        return <TopPage />;
+    }
+};
 export default Top;
