@@ -1,1 +1,1 @@
-webapp/docker/mysql/mysql_data/auto.conf
+webapp/docker/mysql/mysql_data/*
