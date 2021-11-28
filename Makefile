@@ -1,12 +1,12 @@
 b:
-	docker-compose -f ./proxy/docker-compose.yml build
-	docker-compose -f ./webapp/docker-compose.yml build
+	sudo docker-compose -f ./proxy/docker-compose.yml build
+	sudo docker-compose -f ./webapp/docker-compose.yml build
 s:
-	docker-compose -f ./proxy/docker-compose.yml up -d
-	docker-compose -f ./webapp/docker-compose.yml up -d
+	sudo docker-compose -f ./proxy/docker-compose.yml up -d
+	sudo docker-compose -f ./webapp/docker-compose.yml up -d
 r:
-	docker-compose -f ./proxy/docker-compose.yml restart
-	docker-compose -f ./webapp/docker-compose.yml restart
+	sudo docker-compose -f ./proxy/docker-compose.yml restart
+	sudo docker-compose -f ./webapp/docker-compose.yml restart
 
 
 # b proxy:
@@ -24,7 +24,7 @@ r:
 # l proxy:
 # 	docker-compose -f ./proxy/docker-compose.yml logs -t -f
 l:
-	docker-compose -f ./webapp/docker-compose.yml logs -t -f
+	sudo docker-compose -f ./webapp/docker-compose.yml logs -t -f
 
 
 n:
