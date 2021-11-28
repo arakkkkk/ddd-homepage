@@ -3,7 +3,7 @@ version: '3.7'
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
-    container_name: nginx-proxy-test
+    container_name: nginx-proxy
     privileged: true
     environment:
       - "DHPARAM_GENERATION=false"
@@ -23,10 +23,10 @@ services:
 
   letsencrypt-nginx:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    container_name: letsencrypt-nginx-test
+    container_name: letsencrypt-nginx
     privileged: true
     environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy-test # volume_fromを使わない時はコンテナを指定する必要がある
+      - NGINX_PROXY_CONTAINER=nginx-proxy # volume_fromを使わない時はコンテナを指定する必要がある
     networks:
       - container-link
     volumes:
