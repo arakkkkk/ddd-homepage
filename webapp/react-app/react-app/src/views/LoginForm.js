@@ -13,9 +13,9 @@ class LoginForm extends React.Component {
           <div class="container" style={{marginTop: "100px"}}>
               <label>
                 id:
-                <input type="text" name="name" value="admin" />
+                <input type="text" name="name" />
                 password:
-                <input type="password" name="password" value="admin" />
+                <input type="password" name="password" />
               </label>
               <button onClick={this.LoginFormSubmit}>ログイン</button>
           </div>
