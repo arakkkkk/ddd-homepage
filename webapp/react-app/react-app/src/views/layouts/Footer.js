@@ -30,6 +30,9 @@ function Footer() {
                         <br />
                         （祝日の時、火曜夜）
                         <br />
+                        <a href="/login">
+                            login
+                        </a>
                     </small>
                 </div>
             </footer>
