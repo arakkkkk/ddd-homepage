@@ -42,28 +42,30 @@ export const MenuOwner = () => {
     return (
         <div style={{ marginTop: "100px" }}>
             <div class="container">
-                <select
-                    class="form-select mb-3"
-                    aria-label="Default select example"
-                    onChange={(e) => SelectChanged(e, this)}
-                >
-                    <option selected>サービスを選択</option>
-                    {Services.map((service, index) => (
-                        <option value={service.ID} key={service.ID}>
-                            {service.Title}
-                        </option>
-                    ))}
-                </select>
-                <ul>
-                    {Menus.map((menu, index) => (
-                        <li key={index}>
-                            <a onClick={() => edit_page(menu.ID)} class="pointer">
-                                {menu.Title}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-                {CreateButton}
+                <div class="card px-4 py-2" style={{ backgroundColor: "#E8D6AE" }}>
+                    <select
+                        class="form-select mb-3"
+                        aria-label="Default select example"
+                        onChange={(e) => SelectChanged(e, this)}
+                    >
+                        <option selected>サービスを選択</option>
+                        {Services.map((service, index) => (
+                            <option value={service.ID} key={service.ID}>
+                                {service.Title}
+                            </option>
+                        ))}
+                    </select>
+                    <ul>
+                        {Menus.map((menu, index) => (
+                            <li key={index}>
+                                <a onClick={() => edit_page(menu.ID)} class="pointer">
+                                    {menu.Title}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                    {CreateButton}
+                </div>
             </div>
         </div>
     );
