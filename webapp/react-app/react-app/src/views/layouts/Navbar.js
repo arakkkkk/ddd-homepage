@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router';
+import { useParams, userHistory } from "react-router-dom";
 import { GlobalContext } from "Global";
 import { LoginCheck } from "api/Owners";
 import axios from "axios";
@@ -8,6 +9,7 @@ export const Navbar = () => {
     const [ServicesGrouped, setServicesGrouped] = useState([]);
     const [ServicesUngrouped, setServicesUngrouped] = useState([]);
     const [AdminMenu, setAdminMenu] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("/api/services/list/grouped").then((results) => {
@@ -34,12 +36,12 @@ export const Navbar = () => {
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                             <li>
-                                <a class="dropdown-item" href="/owner/service">
+                                <a class="dropdown-item pointer" onClick={() => navigate("/owner/service")}>
                                     サービスの追加
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/owner/menu">
+                                <a class="dropdown-item pointer" onClick={() => navigate("/owner/menu")}>
                                     メニューの追加
                                 </a>
                             </li>
@@ -50,14 +52,11 @@ export const Navbar = () => {
         });
     }, []);
 
-    const menu_page = (service_id) => {
-        window.location.href = "/home/menu/" + String(service_id);
-    };
 
     return (
         <nav class="navbar navbar-expand-sm fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/" style={{ color: "#FFFFFF" }}>
+                <a class="navbar-brand pointer" onClick={()=>navigate('/top', { replace: true })} style={{ color: "#FFFFFF" }}>
                     <img src="/images/title0.png" alt="フレンチ食堂ママン" style={{ width: "170px" }} />
                 </a>
                 <button
@@ -74,7 +73,7 @@ export const Navbar = () => {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/home" style={{ color: "#FFFFFF" }}>
+                            <a class="nav-link active pointer" aria-current="page" onClick={()=>navigate("/home", {replace:true})} style={{ color: "#FFFFFF" }}>
                                 ホーム
                             </a>
                         </li>
@@ -91,8 +90,8 @@ export const Navbar = () => {
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 {ServicesGrouped.map((service, index) => (
-                                    <li key={service.id}>
-                                        <a class="dropdown-item" onClick={() => menu_page(service.ID)}>
+                                    <li key={service.ID}>
+                                        <a class="dropdown-item pointer" onClick={() => navigate("/home/service/"+service.ID)}>
                                             {service.Title}
                                         </a>
                                     </li>
@@ -101,7 +100,7 @@ export const Navbar = () => {
                         </li>
                         {ServicesUngrouped.map((service, index) => (
                             <li class="nav-item" key={service.ID}>
-                                <a class="nav-link" onClick={() => menu_page(service.ID)} style={{ color: "#FFFFFF" }}>
+                                <a class="nav-link pointer" onClick={() => navigate("/home/service/"+service.ID)} style={{ color: "#FFFFFF" }}>
                                     {service.Title}
                                 </a>
                             </li>

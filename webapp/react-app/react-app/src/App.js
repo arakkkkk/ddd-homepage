@@ -32,7 +32,7 @@ export const App = () => {
         <BrowserRouter>
             <Navbar />
             <Routes>
-                <Route exact path="/" element={<Top />} />
+                <Route exact path="/top" element={<Top />} />
                 <Route exact path="/test" element={<Test />} />
                 <Route exact path="/login" element={<LoginForm />} />
                 <Route exact path="/owner" element={<OwnerHome />} />
@@ -43,7 +43,7 @@ export const App = () => {
                 <Route exact path="/owner/:service_id/menu/create" element={<MenuCreate />} />
                 <Route exact path="/owner/menu/edit/:menu_id" element={<MenuUpdate />} />
                 <Route exact path="/home" element={<Home />} />
-                <Route exact path="/home/menu/:service_id" element={<Menu />} />
+                <Route exact path="/home/service/:service_id" element={<Menu />} />
             </Routes>
         </BrowserRouter>
     );

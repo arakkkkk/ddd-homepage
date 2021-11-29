@@ -4,12 +4,15 @@ export const GlobalContext = React.createContext({});
 
 export const GlobalProvider = ({ children }) => {
     const [ApiUrl, setApiUrl] = useState(null);
+    const [Url, setUrl] = useState(null);
 
     return (
         <GlobalContext.Provider
             value={{
                 ApiUrl,
-                setApiUrl
+                setApiUrl,
+                Url,
+                setUrl
             }}
         >
             {children}

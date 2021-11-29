@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { GlobalProvider } from "Global";
 
+import Navbar from "views/layouts/Navbar";
 import App from "./App";
 
 ReactDOM.render(
