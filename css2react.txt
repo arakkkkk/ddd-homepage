@@ -1,0 +1,9 @@
+.head_test {
+    margin: ''%1'
+    font-size: ''%1'
+    position: ''%1'
+    font-weight: ''%1'
+    margin-bottom:''%1'
+    border-bottom: solid 4px''%1'''%1'''%1'''%1'
+    border-radius: 0px 0px 160px 180px/0px 0px 20px''%1'
+}
