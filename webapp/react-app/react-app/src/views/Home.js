@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from 'react-router';
 import HeadImage from "views/layouts/HeadImage";
 import Footer from "views/layouts/Footer";
 import { GlobalContext } from "Global";
@@ -8,6 +9,7 @@ const Home = () => {
     const { ApiUrl, setApiUrl } = useContext(GlobalContext);
     const [ServicesGrouped, setServicesGrouped] = useState([]);
     const [ServicesUngrouped, setServicesUngrouped] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("/api/services/list/grouped").then((results) => {
@@ -26,9 +28,6 @@ const Home = () => {
         });
     }, [ApiUrl]);
 
-    const change_page = (index) => {
-        window.location.href = "/home/menu/" + String(index);
-    };
 
     return (
         <div>
@@ -38,7 +37,7 @@ const Home = () => {
                     <h2>メニュー</h2>
                     <div class="row">
                         {ServicesGrouped.map((service, index) => (
-                            <div class="col-sm-6 pointer" onClick={() => change_page(service.ID)} key={service.ID}>
+                            <div class="col-sm-6 pointer" onClick={() => navigate("/home/service/"+service.ID)} key={service.ID}>
                                 <div class="card mb-3">
                                     <div class="row no-gutters">
                                         <div class="col-4">
@@ -65,7 +64,7 @@ const Home = () => {
                     <h2>イベント</h2>
                     <div class="row">
                         {ServicesUngrouped.map((service, index) => (
-                            <div class="col-sm-6 pointer" onClick={() => change_page(service.ID)} key={service.ID}>
+                            <div class="col-sm-6 pointer" onClick={() => navigate("/home/service/"+service.ID)} key={service.ID}>
                                 <div class="card mb-3">
                                     <div class="row no-gutters">
                                         <div class="col-4">

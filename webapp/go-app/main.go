@@ -3,7 +3,7 @@ package main
 import (
     "go-app/svc/owners"
     "go-app/svc/services"
-    "go-app/svc/menus"
+    // "go-app/svc/components"
 
     "net/http"
     "github.com/gin-gonic/gin"
@@ -27,11 +27,12 @@ func main() {
 	owners.DBInit()
     router = owners.Urls(router)
 
+	// components.DBInit()
+    // router = components.Urls(router)
+
 	services.DBInit()
     router = services.Urls(router)
 
-	menus.DBInit()
-    router = menus.Urls(router)
 
     router.Run(":8000")
 }

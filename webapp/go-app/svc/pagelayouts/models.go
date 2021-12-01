@@ -3,7 +3,6 @@ package services
 import (
 	"github.com/jinzhu/gorm"
 	"go-app/db_conf"
-    "go-app/svc/components"
 )
 
 type Service struct {
@@ -14,7 +13,6 @@ type Service struct {
 	Grouped bool
 	Img     string
 	Turn    int
-    Components  []components.Components
 }
 type ListService []Service
 

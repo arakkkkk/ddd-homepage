@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { GlobalContext } from "Global";
 import axios from "axios";
 import HeadImage from "views/layouts/HeadImage";
@@ -43,6 +44,7 @@ export const Contents = () => {
     const { ApiUrl, setApiUrl } = useContext(GlobalContext);
     const [Components, setComponents] = useState([]);
     const [Service, setService] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("/api/services/get/" + service_id).then((results) => {
@@ -60,7 +62,9 @@ export const Contents = () => {
                     <div className="row">
                         <h2>{Service.Title}</h2>
                         {Components.map((component, index) => (
-                            <CompRouting component={component} />
+                            <div className={"col-sm-" + component.grid}>
+                                <CompRouting component={component} />
+                            </div>
                         ))}
                     </div>
                 </div>

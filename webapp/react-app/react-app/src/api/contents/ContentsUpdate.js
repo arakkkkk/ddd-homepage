@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { GlobalContext } from "Global";
 import axios from "axios";
 import HeadImage from "views/layouts/HeadImage";
 import Footer from "views/layouts/Footer";
+import { Modal, Button } from "react-bootstrap";
 
 // import * as Card from "views/components/Card";
 import { CompRouting } from "views/components/CompRouting";
 
 const componentA = {
+    ID: 1,
     titles: ["aaa", "bbb", "ccc"],
     comments: ["ddd", "eee", "fff"],
     images: [
@@ -21,6 +24,7 @@ const componentA = {
     grid: 6
 };
 const componentB = {
+    ID: 2,
     titles: ["aaa", "bbb", "ccc"],
     comments: ["ddd", "eee", "fff"],
     images: [
@@ -41,8 +45,13 @@ const content = {
 export const Contents = () => {
     const { service_id } = useParams();
     const { ApiUrl, setApiUrl } = useContext(GlobalContext);
+    const navigate = useNavigate();
     const [Components, setComponents] = useState([]);
     const [Service, setService] = useState({});
+    const [ModalContent, setModalContent] = useState("");
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     useEffect(() => {
         axios.get("/api/services/get/" + service_id).then((results) => {
@@ -52,6 +61,15 @@ export const Contents = () => {
         setComponents(content.components);
     }, [ApiUrl]);
 
+    const openModal = (component_id) => {
+        handleShow();
+        setModalContent(
+            <a className="pointer" onClick={() => navigate("/home/service/" + service_id + "/components/create")}>
+                右側に新しく追加
+            </a>
+        );
+    };
+
     return (
         <div>
             <HeadImage />
@@ -60,12 +78,29 @@ export const Contents = () => {
                     <div className="row">
                         <h2>{Service.Title}</h2>
                         {Components.map((component, index) => (
-                            <CompRouting component={component} update={true} />
+                            <div className={"col-sm-" + component.grid} onClick={() => openModal(component.ID)}>
+                                <CompRouting component={component} />
+                            </div>
                         ))}
                     </div>
                 </div>
             </div>
             <Footer />
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>メニュー</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{ModalContent}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleClose}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };

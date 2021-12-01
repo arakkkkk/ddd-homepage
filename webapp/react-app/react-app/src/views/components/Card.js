@@ -16,7 +16,9 @@ export const Card = (props) => {
                             <div class="card-body">
                                 <h4 class="card-title">{props.component.titles[0]}</h4>
                                 <p class="card-text">
-                                    <small class="text-muted">{props.component.comments[0]}</small>
+                                    {props.component.comments[0]}
+                                    <br />
+                                    <small class="text-muted">{props.component.comments[1]}</small>
                                 </p>
                             </div>
                         </div>

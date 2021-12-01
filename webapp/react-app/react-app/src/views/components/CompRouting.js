@@ -12,38 +12,19 @@ import { Image } from "views/components/Image";
 export const CompRouting = (props) => {
     switch (props.component.type) {
         case "title":
-            return (
-                <div className={"col-sm-" + props.component.grid}>
-                    <Title component={props.component} />
-                    <button type="button" class="btn btn-primary">
-                        Primary
-                    </button>
-                </div>
-            );
+            return <Title component={props.component} />;
             break;
 
         case "card":
-            return (
-                <div className={"col-sm-" + props.component.grid}>
-                    <Card component={props.component} />
-                </div>
-            );
+            return <Card component={props.component} />;
             break;
 
         case "text":
-            return (
-                <div className={"col-sm-" + props.component.grid}>
-                    <Text component={props.component} />
-                </div>
-            );
+            return <Text component={props.component} />;
             break;
 
         case "image":
-            return (
-                <div className={"col-sm-" + props.component.grid}>
-                    <Image component={props.component} />
-                </div>
-            );
+            return <Image component={props.component} />;
             break;
 
         case "rowspace":
@@ -52,5 +33,108 @@ export const CompRouting = (props) => {
 
         default:
             return "";
+    }
+};
+
+export const CompDefinition = {
+    title: {
+        A: {
+            titles: 1,
+            comments: 0,
+            images: 0,
+            grid: true
+        },
+        B: {
+            titles: 1,
+            comments: 0,
+            images: 0,
+            grid: true
+        },
+        C: {
+            titles: 1,
+            comments: 0,
+            images: 0,
+            grid: true
+        },
+        D: {
+            titles: 1,
+            comments: 0,
+            images: 0,
+            grid: true
+        }
+    },
+    card: {
+        A: {
+            titles: 1,
+            comments: 2,
+            images: 1,
+            grid: true
+        },
+        B: {
+            titles: 1,
+            comments: 1,
+            images: 0,
+            grid: true
+        },
+        C: {
+            titles: 1,
+            comments: 1,
+            images: 0,
+            grid: true
+        },
+        D: {
+            titles: 1,
+            comments: 1,
+            images: 0,
+            grid: true
+        },
+        E: {
+            titles: 1,
+            comments: 1,
+            images: 0,
+            grid: true
+        },
+        F: {
+            titles: 1,
+            comments: 2,
+            images: 1,
+            grid: true
+        }
+    },
+    image: {
+        A: {
+            titles: 0,
+            comments: 0,
+            images: 1,
+            grid: true
+        }
+    },
+    text: {
+        A: {
+            titles: 0,
+            comments: 1,
+            images: 0,
+            grid: true
+        },
+        B: {
+            titles: 0,
+            comments: 1,
+            images: 0,
+            grid: true
+        },
+        C: {
+            titles: 0,
+            comments: 1,
+            images: 0,
+            grid: true
+        }
+    },
+    rowspace: {
+        A: {
+            titles: 0,
+            comments: 0,
+            images: 0,
+            grid: false
+        }
     }
 };
