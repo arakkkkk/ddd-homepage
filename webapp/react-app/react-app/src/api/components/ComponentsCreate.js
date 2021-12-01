@@ -44,29 +44,31 @@ export const ComponentsCreate = () => {
     }, [ApiUrl]);
 
     const ComponentFormSubmit = () => {
-        var data = new FormData();
         var titles = [];
         for (var form_title of document.getElementsByClassName("form-title")) {
-            titles.push(form_title.value);
+            titles.push({ jText: form_title.value });
         }
         var comments = [];
         for (var form_comment of document.getElementsByClassName("form-comment")) {
-            titles.push(form_comment.value);
+            titles.push({ Text: form_comment.value });
         }
-
-        data.append("service_id", service_id);
-        data.append("titles", titles);
-        data.append("comments", comments);
-        data.append("images", document.getElementById("form_grid").files);
-        data.append("grid", document.getElementById("form_grid").value);
+        const data = {
+            Titles: titles,
+            Comments: comments,
+            Images: [],
+            // Images: document.getElementById("form_grid").files,
+            Type: SelectedComponentType,
+            TypeID: SelectedComponentTypeID,
+            Grid: document.getElementById("form_grid").value
+        };
 
         axios
-            .post("/api/menus/create", data)
+            .post("/api/services/" + service_id + "/append/component", data)
             .then(function (response) {
-                window.location.href = "/owner/menu";
+                console.log(response.data);
             })
             .catch(function (error) {
-                alert(error);
+                // alert(error);
             });
     };
 

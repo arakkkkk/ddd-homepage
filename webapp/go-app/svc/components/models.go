@@ -5,33 +5,37 @@ import (
 	"go-app/db_conf"
 )
 
-type Component struct {
-	gorm.Model
-    Titles: []Title
-    Comments: []Comments
-    Imeges: []Comments
-    Type:   string
-    TypeID: string
-    Grid:   int
-    next:   Component
-}
 type Title struct {
 	gorm.Model
-    Text: string
-    ComponentID: unit
+	Text        string
+	ComponentID uint
 }
 type Comment struct {
 	gorm.Model
-    Text: string
-    ComponentID: unit
+	Text        string
+	ComponentID uint
 }
 type Image struct {
 	gorm.Model
-    Text: string
-    ComponentID: unit
+	Text        string
+	ComponentID uint
+}
+type Component struct {
+	gorm.Model
+	ServiceID uint
+	Titles    []Title   `gorm:"foreignKey:ComponentID"`
+	Comments  []Comment `gorm:"foreignKey:ComponentID"`
+	Images    []Image   `gorm:"foreignKey:ComponentID"`
+	Type      string
+	TypeID    string
+	Grid      int
+	NextID    int
 }
 
 type ListComponent []Component
+type ListTitle []Title
+type ListComment []Comment
+type ListImage []Image
 
 func DBInit() {
 	db := db_conf.DBConnect()

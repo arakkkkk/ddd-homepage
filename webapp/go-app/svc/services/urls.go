@@ -8,6 +8,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	// "fmt"
+	"go-app/svc/components"
 	"log"
 	"time"
 )
@@ -82,6 +83,21 @@ func Urls(router *gin.Engine) *gin.Engine {
 		service.Show, _ = strconv.ParseBool(c.PostForm("show"))
 		service.Grouped, _ = strconv.ParseBool(c.PostForm("grouped"))
 		service.Turn, _ = strconv.Atoi(c.PostForm("turn"))
+
+		response := update(service)
+		c.JSON(202, response)
+	})
+
+	router.POST("/services/:serviec_id/append/component/:comp_id", func(c *gin.Context) {
+		var form components.Component
+		c.ShouldBindJSON(&form)
+		comp_id, _ := strconv.Atoi(c.Param("comp_id"))
+		form.NextID = comp_id + 1
+		// リストをずらす処理
+
+		service_id, _ := strconv.Atoi(c.Param("service_id"))
+		service := get(service_id)
+		service.Components = append(service.Components, form)
 
 		response := update(service)
 		c.JSON(202, response)

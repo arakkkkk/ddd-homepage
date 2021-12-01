@@ -52,7 +52,11 @@ export const App = () => {
                 <Route exact path="/home" element={<Home />} />
                 <Route exact path="/home/service/:service_id/contents" element={<Contents />} />
                 <Route exact path="/home/service/:service_id/contents/update" element={<ContentsUpdate />} />
-                <Route exact path="/home/service/:service_id/components/create" element={<ComponentsCreate />} />
+                <Route
+                    exact
+                    path="/home/service/:service_id/components/:compontent_id/create"
+                    element={<ComponentsCreate />}
+                />
             </Routes>
         </BrowserRouter>
     );

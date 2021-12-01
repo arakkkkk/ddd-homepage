@@ -7,12 +7,16 @@ r:
 c:
 	docker volume rm (docker volume ls -qf dangling=true)
 
+create_comp:
+	curl -X POST -H "Content-Type: application/json" -d '{"titles": ["title1", "title2", "title3"]}' localhost/api/components/create
+get_comp:
+	curl 'localhost/api/components/get/1' | jq
 
 create_service:
 	curl -X POST -H "Content-Type: application/json" -d '{"title": "title", "comment":"comment", "show":"true", "grouped":"false"}' localhost/api/services/create
 
 get_service:
-	curl 'localhost/api/services/get/1'
+	watch -n 3 "curl 'localhost/api/services/get/1' | jq"
 
 list_service:
 	curl 'localhost/api/services/list'
