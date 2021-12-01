@@ -10,6 +10,8 @@ import Top from "views/Top";
 import { Test } from "views/Test";
 import Home from "views/Home";
 import Menu from "views/Menu";
+import Contents from "api/contents/Contents";
+import ContentsUpdate from "api/contents/ContentsUpdate";
 
 import LoginForm from "views/LoginForm";
 import OwnerHome from "views/OwnerHome";
@@ -39,11 +41,15 @@ export const App = () => {
                 <Route exact path="/owner/service" element={<ServiceOwner />} />
                 <Route exact path="/owner/service/create" element={<ServiceCreate />} />
                 <Route exact path="/owner/service/edit/:service_id" element={<ServiceUpdate />} />
+                {/*
                 <Route exact path="/owner/menu" element={<MenuOwner />} />
                 <Route exact path="/owner/:service_id/menu/create" element={<MenuCreate />} />
                 <Route exact path="/owner/menu/edit/:menu_id" element={<MenuUpdate />} />
+                */}
                 <Route exact path="/home" element={<Home />} />
-                <Route exact path="/home/menu/:service_id" element={<Menu />} />
+                // <Route exact path="/home/menu/:service_id" element={<Menu />} />
+                <Route exact path="/home/service/:service_id/contents" element={<Contents />} />
+                <Route exact path="/home/service/:service_id/contents/update" element={<ContentsUpdate />} />
             </Routes>
         </BrowserRouter>
     );

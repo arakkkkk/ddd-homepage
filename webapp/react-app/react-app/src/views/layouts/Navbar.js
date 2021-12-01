@@ -21,9 +21,9 @@ export const Navbar = () => {
         LoginCheck().then((res) => {
             if (res.data.state) {
                 setAdminMenu(
-                    <li class="nav-item dropdown">
+                    <li className="nav-item dropdown">
                         <a
-                            class="nav-link dropdown-toggle"
+                            className="nav-link dropdown-toggle"
                             id="navbarDropdown2"
                             role="button"
                             data-bs-toggle="dropdown"
@@ -32,14 +32,14 @@ export const Navbar = () => {
                         >
                             管理者メニュー
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <ul className="dropdown-menu" aria-labelledby="navbarDropdown2">
                             <li>
-                                <a class="dropdown-item" href="/owner/service">
+                                <a className="dropdown-item" href="/owner/service">
                                     サービスの追加
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/owner/menu">
+                                <a className="dropdown-item" href="/owner/menu">
                                     メニューの追加
                                 </a>
                             </li>
@@ -55,13 +55,13 @@ export const Navbar = () => {
     };
 
     return (
-        <nav class="navbar navbar-expand-sm fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/" style={{ color: "#FFFFFF" }}>
+        <nav className="navbar navbar-expand-sm fixed-top">
+            <div className="container-fluid">
+                <a className="navbar-brand " href="/" style={{ color: "#FFFFFF" }}>
                     <img src="/images/title0.png" alt="フレンチ食堂ママン" style={{ width: "170px" }} />
                 </a>
                 <button
-                    class="navbar-toggler"
+                    className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
@@ -69,18 +69,18 @@ export const Navbar = () => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/home" style={{ color: "#FFFFFF" }}>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/home" style={{ color: "#FFFFFF" }}>
                                 ホーム
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li className="nav-item dropdown">
                             <a
-                                class="nav-link dropdown-toggle"
+                                className="nav-link dropdown-toggle"
                                 id="navbarDropdown1"
                                 role="button"
                                 data-bs-toggle="dropdown"
@@ -89,10 +89,10 @@ export const Navbar = () => {
                             >
                                 メニュー
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 {ServicesGrouped.map((service, index) => (
-                                    <li key={service.id}>
-                                        <a class="dropdown-item" onClick={() => menu_page(service.ID)}>
+                                    <li key={service.id} className="pointer">
+                                        <a className="dropdown-item" onClick={() => menu_page(service.ID)}>
                                             {service.Title}
                                         </a>
                                     </li>
@@ -100,8 +100,8 @@ export const Navbar = () => {
                             </ul>
                         </li>
                         {ServicesUngrouped.map((service, index) => (
-                            <li class="nav-item" key={service.ID}>
-                                <a class="nav-link" onClick={() => menu_page(service.ID)} style={{ color: "#FFFFFF" }}>
+                            <li className="nav-item" key={service.ID}>
+                                <a className="nav-link" onClick={() => menu_page(service.ID)} style={{ color: "#FFFFFF" }}>
                                     {service.Title}
                                 </a>
                             </li>
