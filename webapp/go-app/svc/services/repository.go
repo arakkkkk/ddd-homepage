@@ -15,6 +15,13 @@ func create(service Service) Service {
 	return service
 }
 
+func Delete(service Service) Service {
+	db := db_conf.DBConnect()
+	defer db.Close()
+	db.Delete(&service)
+	return service
+}
+
 func AppendComponent(service Service, component components.Component) Service {
 	db := db_conf.DBConnect()
 	defer db.Close()
@@ -57,12 +64,12 @@ func get(id int) Service {
 			orderedComponents[i], orderedComponents[len(orderedComponents)-i-1] =
 				orderedComponents[len(orderedComponents)-i-1], orderedComponents[i]
 		}
-        service.Components = orderedComponents
+		service.Components = orderedComponents
 		for i, component := range service.Components {
 			db.Model(&component).Association("Titles").Find(&service.Components[i].Titles)
 			db.Model(&component).Association("Comments").Find(&service.Components[i].Comments)
 		}
-    }
+	}
 
 	db.Close()
 	return service

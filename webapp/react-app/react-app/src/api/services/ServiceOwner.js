@@ -4,16 +4,15 @@ import axios from "axios";
 // import Footer from "./layouts/Footer";
 
 export const ServiceOwner = () => {
-    const [Menus, setMenus] = useState([]);
+    const [load, setLoad] = useState(0);
     const [Services, setServices] = useState([]);
-    const [CreateButton, setCreateButton] = useState("");
 
     useEffect(() => {
         axios.get("/api/services/list/all").then((results) => {
             const data = results.data;
             setServices(data);
         });
-    }, []);
+    }, [load]);
 
     const SelectChanged = (e, elem) => {};
 
@@ -33,6 +32,28 @@ export const ServiceOwner = () => {
                             <li key={index}>
                                 <a onClick={() => edit_page(service.ID)} class="pointer">
                                     {service.Title}
+                                </a>
+                                <a
+                                    style={{ marginLeft: "300px" }}
+                                    onClick={() => {
+                                        var result = window.confirm("本当に消去しますか？");
+                                        if (result) {
+                                            axios
+                                                .post("/api/services/delete/" + service.ID)
+                                                .then(function (response) {
+                                                    console.log(response.data);
+                                                })
+                                                .catch(function (error) {
+                                                    console.log(error);
+                                                })
+                                                .finally(function () {
+                                                    setLoad(service.ID);
+                                                });
+                                        }
+                                    }}
+                                    class="pointer"
+                                >
+                                    消去
                                 </a>
                             </li>
                         ))}

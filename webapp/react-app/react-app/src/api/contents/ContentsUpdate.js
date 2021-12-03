@@ -54,17 +54,20 @@ export const Contents = () => {
                 <a
                     className="pointer"
                     onClick={() => {
-                        axios
-                            .post("/api/services/" + service_id + "/delete/component/" + component_id)
-                            .then(function (response) {
-                                console.log(response.data);
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            })
-                            .finally(function () {
-                                handleClose();
-                            });
+                        var result = window.confirm("本当に消去しますか？");
+                        if (result) {
+                            axios
+                                .post("/api/services/" + service_id + "/delete/component/" + component_id)
+                                .then(function (response) {
+                                    console.log(response.data);
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                })
+                                .finally(function () {
+                                    handleClose();
+                                });
+                        }
                     }}
                 >
                     要素を消去

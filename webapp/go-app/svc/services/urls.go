@@ -25,6 +25,13 @@ func Urls(router *gin.Engine) *gin.Engine {
 		}
 	})
 
+	router.POST("/services/delete/:id", func(c *gin.Context) {
+		id, _ := strconv.Atoi(c.Param("id"))
+		service := get(id)
+		Delete(service)
+		c.JSON(200, service)
+	})
+
 	router.GET("/services/list/all", func(c *gin.Context) {
 		c.JSON(200, list())
 	})
@@ -117,15 +124,15 @@ func Urls(router *gin.Engine) *gin.Engine {
 			}
 
 			components.Update(component)
-            log.Println("jiojoijoijio")
-            log.Println(component)
+			log.Println("jiojoijoijio")
+			log.Println(component)
 			c.JSON(202, component)
 		}
 	})
 
 	router.POST("/services/:service_id/append/component/:comp_id", func(c *gin.Context) {
-        // comp_idをもつcomponentの右側に追加する
-        // comp_id == 0の場合先頭に追加する
+		// comp_idをもつcomponentの右側に追加する
+		// comp_id == 0の場合先頭に追加する
 		comp_id, _ := strconv.Atoi(c.Param("comp_id"))
 
 		service_id, _ := strconv.Atoi(c.Param("service_id"))
@@ -133,24 +140,24 @@ func Urls(router *gin.Engine) *gin.Engine {
 
 		var adding_comp components.Component
 		c.ShouldBindJSON(&adding_comp)
-        adding_comp.ServiceID = service.ID
+		adding_comp.ServiceID = service.ID
 
 		if len(service.Components) == 0 {
-            // 初めて追加する場合
+			// 初めて追加する場合
 			adding_comp.NextID = 0
-            components.Create(adding_comp)
+			components.Create(adding_comp)
 		} else {
 			if comp_id == 0 {
-                // 先頭に追加する場合
+				// 先頭に追加する場合
 				head_comp := service.Components[0]
 				adding_comp.NextID = head_comp.ID
 				components.Update(head_comp)
-                components.Create(adding_comp)
+				components.Create(adding_comp)
 			} else {
-                // 途中に追加or末端に追加する場合
+				// 途中に追加or末端に追加する場合
 				target_comp := components.Get(comp_id)
 				adding_comp.NextID = target_comp.NextID
-                adding_comp = components.Create(adding_comp)
+				adding_comp = components.Create(adding_comp)
 				target_comp.NextID = adding_comp.ID
 				components.Update(target_comp)
 			}
@@ -163,14 +170,14 @@ func Urls(router *gin.Engine) *gin.Engine {
 		comp_id, _ := strconv.Atoi(c.Param("comp_id"))
 		service_id, _ := strconv.Atoi(c.Param("service_id"))
 
-        delete_comp := components.Get(comp_id)
-        prev_comp := components.GetPrev(delete_comp.ID)
-        log.Println("jiojio", prev_comp)
-        if prev_comp.ID != 0 {
-            prev_comp.NextID = delete_comp.NextID
-            components.Update(prev_comp)
-        }
-        components.Delete(delete_comp)
+		delete_comp := components.Get(comp_id)
+		prev_comp := components.GetPrev(delete_comp.ID)
+		log.Println("jiojio", prev_comp)
+		if prev_comp.ID != 0 {
+			prev_comp.NextID = delete_comp.NextID
+			components.Update(prev_comp)
+		}
+		components.Delete(delete_comp)
 
 		c.JSON(202, get(service_id))
 	})
