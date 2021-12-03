@@ -35,8 +35,6 @@ services:
     container_name: react_container
     restart: always
     tty: true
-    volumes:
-      - ./react-app:/app/react
     command: sh -c "cd /app/react/react-app && yarn start"
     ports:
       - 3000:3000
