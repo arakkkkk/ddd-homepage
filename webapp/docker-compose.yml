@@ -6,17 +6,23 @@ services:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     container_name: nginx_container
-    ports:
-      - 80:80
+    # ports:
+    #   - 80:80
     restart: always
     environment:
       - TZ=Asia/Tokyo
-      - VIRTUAL_HOST=localhost
-      - LETSENCRYPT_HOST=localhost
+
+      # - VIRTUAL_HOST=localhost
+      # - LETSENCRYPT_HOST=localhost
+      # - LETSENCRYPT_EMAIL=bdkouiti5013@gmail.com # Let's Encryptのメール設定
+      # - LETSENCRYPT_TEST=true # Let's Encryptのテストかどうかのフラグ 本番ではfalseにする (指定しないとテスト扱いになる)
+      # - CERT_NAME=default # ローカルで認証局を立てるときに使う ※本番ではLet's Encryptから直接取得するのでコメントアウトする
+      # - HTTPS_METHOD=noredirect # リダイレクトを無効にする
+
+      - VIRTUAL_HOST=maman2030-himeji.com,www.maman2030-himeji.com # nginx-proxyのホスト設定 ※本番ではlocalhost部分を「example.com,www.example.com」等にする
+      - LETSENCRYPT_HOST=maman2030-himeji.com,www.maman2030-himeji.com # Let's Encryptのホスト設定 ※本番ではlocalhost部分を「example.com,www.example.com」等にする
       - LETSENCRYPT_EMAIL=bdkouiti5013@gmail.com # Let's Encryptのメール設定
-      - LETSENCRYPT_TEST=true # Let's Encryptのテストかどうかのフラグ 本番ではfalseにする (指定しないとテスト扱いになる)
-      - CERT_NAME=default # ローカルで認証局を立てるときに使う ※本番ではLet's Encryptから直接取得するのでコメントアウトする
-      - HTTPS_METHOD=noredirect # リダイレクトを無効にする
+      - LETSENCRYPT_TEST=false # Let's Encryptのテストかどうかのフラグ 本番ではfalseにする (指定しないとテスト扱いになる)
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
