@@ -15,10 +15,16 @@ func create(service Service) Service {
 	return service
 }
 
+func AppendComponent(service Service, component components.Component) Service {
+	db := db_conf.DBConnect()
+	defer db.Close()
+	db.Model(&service).Association("Components").Append(component)
+	return service
+}
+
 func update(service Service) Service {
 	db := db_conf.DBConnect()
 	defer db.Close()
-	log.Print(service.ID)
 	if err := db.Save(&service).Error; err != nil {
 		log.Println(err)
 	}
@@ -30,21 +36,33 @@ func get(id int) Service {
 	var service Service
 	db.First(&service, "id= ?", id)
 
-	var list_component components.ListComponent
-	db.Model(&service).Association("Components").Find(&list_component)
-	for _, component := range list_component {
-		log.Println(component)
-		var titles components.ListTitle
-		db.Model(&component).Association("Title").Find(&titles)
-		component.Titles = titles
-		var comments components.ListComment
-		db.Model(&component).Association("Comment").Find(&comments)
-		component.Comments = comments
-		var images components.ListImage
-		db.Model(&component).Association("Image").Find(&images)
-		component.Images = images
-	}
-	service.Components = list_component
+	// componentのリストをorderdComponentsとして定義
+	var orderedComponents []components.Component
+	// 対象のserviceに関連付けられたcomponentの末端要素を配列に追加
+	orderedComponents = append(orderedComponents, components.GetTail(int(service.ID)))
+	if orderedComponents[0].ID != 0 {
+		for i := 0; i < 100; i++ {
+			// 現在の先頭の要素から一つ前のcomponentを取得
+			now_component := components.GetPrev(orderedComponents[len(orderedComponents)-1].ID)
+			// 一つ前のcomponentが取得できなかったら終了
+			if now_component.ID == 0 {
+				break
+			}
+			// 取得した一つ前のcomponentを末端に追加
+			// この時点では逆順でsliceに追加されていく
+			orderedComponents = append(orderedComponents, now_component)
+		}
+		// ordeorderedComponentsを逆順に並び替える
+		for i := 0; i < len(orderedComponents)/2; i++ {
+			orderedComponents[i], orderedComponents[len(orderedComponents)-i-1] =
+				orderedComponents[len(orderedComponents)-i-1], orderedComponents[i]
+		}
+        service.Components = orderedComponents
+		for i, component := range service.Components {
+			db.Model(&component).Association("Titles").Find(&service.Components[i].Titles)
+			db.Model(&component).Association("Comments").Find(&service.Components[i].Comments)
+		}
+    }
 
 	db.Close()
 	return service

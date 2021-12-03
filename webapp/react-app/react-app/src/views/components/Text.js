@@ -1,19 +1,19 @@
 export const Text = (props) => {
-    switch (props.component.type_id) {
+    switch (props.component.TypeID) {
         case "A":
-            return <div style={a}>{props.component.comments[0]}</div>;
+            return <div style={a}>{props.component.Comments[0].Text}</div>;
             break;
 
         case "B":
-            return <div style={b}>{props.component.comments[0]}</div>;
+            return <div style={b}>{props.component.Comments[0].Text}</div>;
             break;
 
         case "C":
-            return <div style={c}>{props.component.comments[0]}</div>;
+            return <div style={c}>{props.component.Comments[0].Text}</div>;
             break;
 
         default:
-            return "not found";
+            return "Text not found";
     }
 };
 

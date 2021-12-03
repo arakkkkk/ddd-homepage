@@ -54,7 +54,7 @@ export const App = () => {
                 <Route exact path="/home/service/:service_id/contents/update" element={<ContentsUpdate />} />
                 <Route
                     exact
-                    path="/home/service/:service_id/components/:compontent_id/create"
+                    path="/home/service/:service_id/components/:component_id/create"
                     element={<ComponentsCreate />}
                 />
             </Routes>

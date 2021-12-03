@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { GlobalContext } from "Global";
 import { LoginCheck } from "api/Owners";
 import axios from "axios";
@@ -7,24 +8,30 @@ import { CompRouting, CompDefinition } from "views/components/CompRouting";
 
 export const ComponentsCreate = () => {
     const { service_id } = useParams();
+    const { component_id } = useParams();
     const { ApiUrl, setApiUrl } = useContext(GlobalContext);
+    const navigate = useNavigate();
     const [ComponentType, setComponentType] = useState([]);
     const [ComponentTypeID, setComponentTypeID] = useState([]);
     const [SelectedComponentType, setSelectedComponentType] = useState(false);
     const [SelectedComponentTypeID, setSelectedComponentTypeID] = useState(false);
-    const [Menu, setMenu] = useState([]);
 
     const component = {
         ID: 1,
-        titles: ["タイトル1", "タイトル2", "タイトル3"],
-        comments: ["テキスト1", "テキスト2", "テキスト3"],
-        images: [
-            "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
-            "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
-            "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg"
+        Titles: [
+            { Text: "タイトル1", Turn: 1 },
+            { Text: "タイトル2", Turn: 2 },
+            { Text: "タイトル3", Turn: 3 }
         ],
-        type: SelectedComponentType,
-        type_id: SelectedComponentTypeID,
+        Comments: [
+            { Text: "テキスト1", Turn: 1 },
+            { Text: "テキスト2", Turn: 2 },
+            { Text: "テキスト3", Turn: 3 }
+        ],
+        comments: ["テキスト1", "テキスト2", "テキスト3"],
+        Image: "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
+        Type: SelectedComponentType,
+        TypeID: SelectedComponentTypeID,
         grid: 12
     };
 
@@ -45,30 +52,49 @@ export const ComponentsCreate = () => {
 
     const ComponentFormSubmit = () => {
         var titles = [];
+        let i;
+        i = 0;
         for (var form_title of document.getElementsByClassName("form-title")) {
-            titles.push({ jText: form_title.value });
+            i += 1;
+            titles.push({ Text: form_title.value, Turn: i });
         }
         var comments = [];
+        i = 0;
         for (var form_comment of document.getElementsByClassName("form-comment")) {
-            titles.push({ Text: form_comment.value });
+            i += 1;
+            comments.push({ Text: form_comment.value, Turn: i });
         }
         const data = {
             Titles: titles,
             Comments: comments,
             Images: [],
-            // Images: document.getElementById("form_grid").files,
             Type: SelectedComponentType,
             TypeID: SelectedComponentTypeID,
-            Grid: document.getElementById("form_grid").value
+            Grid: Number(document.getElementById("form-grid").value)
         };
+        const imgform = new FormData();
+        try {
+            imgform.append("file", document.getElementById("form_img1").files[0]);
+        } catch {}
 
         axios
-            .post("/api/services/" + service_id + "/append/component", data)
+            .post("/api/services/" + service_id + "/append/component/" + component_id, data)
             .then(function (response) {
                 console.log(response.data);
+                axios
+                    .post("/api/services/" + service_id + "/append/component/" + component_id + "/upimage", imgform)
+                    .then(function (response) {
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        navigate("/home/service/" + service_id + "/contents/update");
+                    });
             })
             .catch(function (error) {
-                // alert(error);
+                console.log(error);
             });
     };
 
@@ -105,10 +131,10 @@ export const ComponentsCreate = () => {
         for (let i = 1; i <= CompDefinition[SelectedComponentType][SelectedComponentTypeID]["comments"]; i++) {
             form.push(
                 <div className="mb-3">
-                    <label for={"form_comments" + i} className="form-label">
+                    <label for={"form_comment" + i} className="form-label">
                         テキスト{i}：
                     </label>
-                    <input type="text" className="form-control form-commet" id={"form_comments" + i} />
+                    <input type="text" className="form-control form-comment" id={"form_comment" + i} />
                 </div>
             );
         }
@@ -118,7 +144,7 @@ export const ComponentsCreate = () => {
                     <label className="form-label" for={"form_images" + i}>
                         画像{i}：
                     </label>
-                    <input type="file" className="form-control form-image" id={"form_img" + 1} />
+                    <input type="file" className="form-control form-image" id={"form_img" + i} />
                 </div>
             );
         }
@@ -128,7 +154,7 @@ export const ComponentsCreate = () => {
                     <label for="form_grid" className="form-grid">
                         グリッド：
                     </label>
-                    <input type="number" className="form-control" id="form_grid" />
+                    <input type="number" className="form-control" id="form-grid" />
                 </div>
             );
         }

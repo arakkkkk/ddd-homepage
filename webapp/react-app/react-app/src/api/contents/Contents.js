@@ -9,50 +9,26 @@ import Footer from "views/layouts/Footer";
 // import * as Card from "views/components/Card";
 import { CompRouting } from "views/components/CompRouting";
 
-const componentA = {
-    titles: ["aaa", "bbb", "ccc"],
-    comments: ["ddd", "eee", "fff"],
-    images: [
-        "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
-        "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
-        "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg"
-    ],
-    type: "card",
-    type_id: "F",
-    grid: 6
-};
-const componentB = {
-    titles: ["aaa", "bbb", "ccc"],
-    comments: ["ddd", "eee", "fff"],
-    images: [
-        "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
-        "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg",
-        "http://0.0.0.0/api/image/2021-1201-010233_2021-1122-112133_maman_f12.jpg"
-    ],
-    type: "card",
-    type_id: "F",
-    turn: 2,
-    grid: 6
-};
-const content = {
-    service: "unit",
-    components: [componentA, componentB]
-};
-
 export const Contents = () => {
     const { service_id } = useParams();
     const { ApiUrl, setApiUrl } = useContext(GlobalContext);
     const [Components, setComponents] = useState([]);
-    const [Service, setService] = useState({});
+    const [Service, setService] = useState({ Components: [] });
     const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("/api/services/get/" + service_id).then((results) => {
             const data = results.data;
+            if (data["Components"] == null) {
+                data["Components"] = [];
+            }
+            for (let comp of data["Components"]) {
+                comp["Image"] = ApiUrl + "/api/image/" + comp.Image;
+            }
+            console.log(data);
             setService(data);
         });
-        setComponents(content.components);
-    }, [ApiUrl]);
+    }, [ApiUrl, service_id]);
 
     return (
         <div>
@@ -61,7 +37,7 @@ export const Contents = () => {
                 <div className="card px-4 py-2" style={{ backgroundColor: "#E8D6AE" }}>
                     <div className="row">
                         <h2>{Service.Title}</h2>
-                        {Components.map((component, index) => (
+                        {Service.Components.map((component, index) => (
                             <div className={"col-sm-" + component.grid}>
                                 <CompRouting component={component} />
                             </div>

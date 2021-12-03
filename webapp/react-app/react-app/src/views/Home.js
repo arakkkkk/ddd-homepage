@@ -37,8 +37,8 @@ const Home = () => {
                     <h2>メニュー</h2>
                     <div class="row">
                         {ServicesGrouped.map((service, index) => (
-                            <div class="col-sm-6 pointer" onClick={() => navigate("/home/service/"+service.ID)} key={service.ID}>
-                                <div class="card mb-3">
+                            <div class="col-sm-6">
+                                <div class="card mb-3 pointer" onClick={() => navigate("/home/service/"+service.ID+"/contents")} key={service.ID}>
                                     <div class="row no-gutters">
                                         <div class="col-4">
                                             <img
@@ -64,8 +64,8 @@ const Home = () => {
                     <h2>イベント</h2>
                     <div class="row">
                         {ServicesUngrouped.map((service, index) => (
-                            <div class="col-sm-6 pointer" onClick={() => navigate("/home/service/"+service.ID)} key={service.ID}>
-                                <div class="card mb-3">
+                            <div class="col-sm-6">
+                                <div class="card mb-3 pointer" onClick={() => navigate("/home/service/"+service.ID+"/contents")} key={service.ID}>
                                     <div class="row no-gutters">
                                         <div class="col-4">
                                             <img

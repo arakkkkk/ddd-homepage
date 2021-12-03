@@ -10,7 +10,7 @@ import { Text } from "views/components/Text";
 import { Image } from "views/components/Image";
 
 export const CompRouting = (props) => {
-    switch (props.component.type) {
+    switch (props.component.Type) {
         case "title":
             return <Title component={props.component} />;
             break;
@@ -32,7 +32,7 @@ export const CompRouting = (props) => {
             break;
 
         default:
-            return "";
+            return "Type not found.";
     }
 };
 

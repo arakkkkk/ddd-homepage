@@ -18,7 +18,7 @@ func Urls(router *gin.Engine) *gin.Engine {
 		if err != nil {
 			c.JSON(http.StatusBadRequest, err)
 		} else {
-			c.JSON(200, get(id))
+			c.JSON(200, Get(id))
 		}
 	})
 
@@ -57,7 +57,7 @@ func Urls(router *gin.Engine) *gin.Engine {
 		// form.Grouped, _ = strconv.ParseBool(c.PostForm("grouped"))
 		// form.Turn, _ = strconv.Atoi(c.PostForm("turn"))
 
-		component := create(form)
+		component := Create(form)
 		c.JSON(202, component)
 	})
 

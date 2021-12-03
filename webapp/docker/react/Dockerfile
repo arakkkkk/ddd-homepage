@@ -9,3 +9,4 @@ RUN npm install -g @types/react-router-dom
 RUN npm install -g react-dev-utils
 RUN npm install axios
 RUN npm install swiper
+RUN npm install react-bootstrap bootstrap@5.1.3

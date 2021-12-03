@@ -1,16 +1,17 @@
 export const Image = (props) => {
-    switch (props.component.type_id) {
+    switch (props.component.TypeID) {
         case "A":
-            <img
-                src={props.component.images[0]}
-                class="img-fluid"
-                alt="image"
-                style={{ width: "100%", padding: 0, margin: 0 }}
-            />;
-            return;
+            return (
+                <img
+                    src={props.component.Image}
+                    class="img-fluid"
+                    alt="image"
+                    style={{ width: "100%", padding: 0, margin: 0 }}
+                />
+            );
             break;
 
         default:
-            return "not found";
+            return "Image not found";
     }
 };

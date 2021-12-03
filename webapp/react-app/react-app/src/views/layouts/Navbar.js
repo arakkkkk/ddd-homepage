@@ -41,8 +41,11 @@ export const Navbar = () => {
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item pointer" onClick={() => navigate("/owner/menu")}>
-                                    メニューの追加
+                                <a
+                                    class="dropdown-item pointer"
+                                    onClick={() => navigate("/home/service/0/contents/update")}
+                                >
+                                    サービスページの編集
                                 </a>
                             </li>
                         </ul>
@@ -57,7 +60,7 @@ export const Navbar = () => {
             <div class="container-fluid">
                 <a
                     class="navbar-brand pointer"
-                    onClick={() => navigate("/top", { replace: true })}
+                    onClick={() => navigate("/", { replace: true })}
                     style={{ color: "#FFFFFF" }}
                 >
                     <img src="/images/title0.png" alt="フレンチ食堂ママン" style={{ width: "170px" }} />
@@ -79,7 +82,7 @@ export const Navbar = () => {
                             <a
                                 class="nav-link active pointer"
                                 aria-current="page"
-                                onClick={() => navigate("/home", { replace: true })}
+                                onClick={() => navigate("/home")}
                                 style={{ color: "#FFFFFF" }}
                             >
                                 ホーム
@@ -101,7 +104,7 @@ export const Navbar = () => {
                                     <li key={service.ID}>
                                         <a
                                             class="dropdown-item pointer"
-                                            onClick={() => navigate("/home/service/" + service.ID)}
+                                            onClick={() => navigate("/home/service/" + service.ID + "/contents")}
                                         >
                                             {service.Title}
                                         </a>
@@ -113,7 +116,7 @@ export const Navbar = () => {
                             <li class="nav-item" key={service.ID}>
                                 <a
                                     class="nav-link pointer"
-                                    onClick={() => navigate("/home/service/" + service.ID)}
+                                    onClick={() => navigate("/home/service/" + service.ID + "/contents")}
                                     style={{ color: "#FFFFFF" }}
                                 >
                                     {service.Title}

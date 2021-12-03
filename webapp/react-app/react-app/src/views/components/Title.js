@@ -1,17 +1,17 @@
 export const Title = (props) => {
-    switch (props.component.type_id) {
+    switch (props.component.TypeID) {
         case "A":
             return (
                 <div style={{ ...a, ...global }}>
                     <span style={a_b}></span>
-                    {props.component.titles[0]}
+                    {props.component.Titles[0].Text}
                 </div>
             );
             break;
         case "B":
             return (
                 <div style={{ ...b, ...global }}>
-                    {props.component.titles[0]}
+                    {props.component.Titles[0].Text}
                     <span style={b_a}></span>
                 </div>
             );
@@ -19,14 +19,14 @@ export const Title = (props) => {
         case "C":
             return (
                 <div style={{ ...c, ...global }}>
-                    {props.component.titles[0]}
+                    {props.component.Titles[0].Text}
                     <span style={c_a}></span>
                 </div>
             );
             break;
 
         default:
-            return "not found";
+            return "Title not found";
     }
 };
 
