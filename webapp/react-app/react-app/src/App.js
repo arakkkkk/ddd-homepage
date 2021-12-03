@@ -30,7 +30,7 @@ import { ServiceUpdate } from "api/services/ServiceUpdate";
 export const App = () => {
     const { ApiUrl, setApiUrl } = useContext(GlobalContext);
     useEffect(() => {
-        setApiUrl("http://0.0.0.0");
+        setApiUrl(window.location.origin);
     }, [ApiUrl]);
     return (
         <BrowserRouter>
