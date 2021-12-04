@@ -31,7 +31,7 @@ export const Card = (props) => {
             return (
                 <div class="row my-2">
                     <div class="card pb-3 pl-4">
-                        <h4 class="card-title" style={{ fontSize: "40px" }}>
+                        <h4 class="card-title" style={{ fontSize: "28px" }}>
                             {props.component.Titles[0].Text}
                         </h4>
                         <p class="card-text">
@@ -105,7 +105,7 @@ export const Card = (props) => {
 };
 
 const a = {
-    fontSize: "40px",
+    fontSize: "28px",
     textAlign: "center",
     position: "relative"
 };
@@ -120,7 +120,7 @@ const a_a = {
 };
 const b = {
     color: "#583F2A",
-    fontSize: "40px",
+    fontSize: "28px",
     textAlign: "center",
     position: "relative"
 };

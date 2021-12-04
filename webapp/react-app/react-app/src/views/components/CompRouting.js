@@ -28,7 +28,7 @@ export const CompRouting = (props) => {
             break;
 
         case "rowspace":
-            return <div className="row" style={{ height: "20px" }}></div>;
+            return <div className="row" style={{ height: "70px" }}></div>;
             break;
 
         default:
