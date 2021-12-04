@@ -14,6 +14,10 @@ rg:
 	sudo docker-compose -f ./webapp/docker-compose.yml build go
 	sudo docker-compose -f ./webapp/docker-compose.yml restart go
 
+sr:
+	sudo docker-compose -f ./webapp/docker-compose.yml build react
+	sudo docker-compose -f ./webapp/docker-compose.yml up -d react
+
 rn:
 	sudo docker-compose -f ./webapp/docker-compose.yml restart nginx
 

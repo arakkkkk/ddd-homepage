@@ -1,5 +1,5 @@
 FROM node:16.13.0-alpine
-COPY ./react-app/react-app /app/react
+COPY ./react-app /app/react
 WORKDIR /app/react
 
 RUN npm install --save prop-types

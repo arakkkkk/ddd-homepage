@@ -107,7 +107,11 @@ export const Contents = () => {
                             先頭に新しく追加
                         </a>
                         {Service.Components.map((component, index) => (
-                            <div className={"col-sm-" + component.grid} onClick={() => openModal(component.ID)}>
+                            <div
+                                className={"col-sm-" + component.grid}
+                                onClick={() => openModal(component.ID)}
+                                style={{ whiteSpace: "pre-line" }}
+                            >
                                 <CompRouting component={component} />
                             </div>
                         ))}
