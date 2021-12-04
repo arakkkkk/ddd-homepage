@@ -64,13 +64,16 @@ export const ComponentsCreate = () => {
             i += 1;
             comments.push({ Text: form_comment.value, Turn: i });
         }
+        try {
+            var Grid = Number(document.getElementById("form-grid").value)
+        } catch {}
         const data = {
             Titles: titles,
             Comments: comments,
             Images: [],
             Type: SelectedComponentType,
             TypeID: SelectedComponentTypeID,
-            Grid: Number(document.getElementById("form-grid").value)
+            Grid: Grid
         };
         const imgform = new FormData();
         try {

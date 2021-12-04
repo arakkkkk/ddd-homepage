@@ -4,7 +4,7 @@ export const Image = (props) => {
             return (
                 <img
                     src={props.component.Image}
-                    class="img-fluid"
+                    className ="img-fluid my-3"
                     alt="image"
                     style={{ width: "100%", padding: 0, margin: 0 }}
                 />
