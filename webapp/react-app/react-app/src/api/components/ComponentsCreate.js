@@ -134,7 +134,7 @@ export const ComponentsCreate = () => {
                     <label for={"form_comment" + i} className="form-label">
                         テキスト{i}：
                     </label>
-                    <input type="text" className="form-control form-comment" id={"form_comment" + i} />
+                    <textarea className="form-control form-comment" id={"form_comment" + i} />
                 </div>
             );
         }
