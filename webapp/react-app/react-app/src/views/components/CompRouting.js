@@ -8,6 +8,7 @@ import { Card } from "views/components/Card";
 import { Text } from "views/components/Text";
 // import { RowSpace } from "views/components/RowSpace";
 import { Image } from "views/components/Image";
+import { RowSpace } from "./RowSpace";
 
 export const CompRouting = (props) => {
     switch (props.component.Type) {
@@ -28,7 +29,7 @@ export const CompRouting = (props) => {
             break;
 
         case "rowspace":
-            return <div className="row" style={{ height: "70px" }}></div>;
+            return <RowSpace component={props.component} />;
             break;
 
         default:
@@ -56,12 +57,6 @@ export const CompDefinition = {
             images: 0,
             grid: true
         },
-        D: {
-            titles: 1,
-            comments: 0,
-            images: 0,
-            grid: true
-        }
     },
     card: {
         A: {
@@ -135,6 +130,12 @@ export const CompDefinition = {
             comments: 0,
             images: 0,
             grid: false
+        },
+        B: {
+            titles: 0,
+            comments: 0,
+            images: 0,
+            grid: true
         }
     }
 };

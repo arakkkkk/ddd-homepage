@@ -110,7 +110,7 @@ export const Contents = () => {
                             <div
                                 className={"col-sm-" + component.grid}
                                 onClick={() => openModal(component.ID)}
-                                style={{ whiteSpace: "pre-line" }}
+                                style={{ whiteSpace: "pre-line", border: "4px solid", borderColor: "#031de2" }}
                             >
                                 <CompRouting component={component} />
                             </div>

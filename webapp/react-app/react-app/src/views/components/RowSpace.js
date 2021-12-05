@@ -1,7 +1,10 @@
 export const RowSpace = (props) => {
     switch (props.component.type_id) {
         case "A":
-            return <div style={a}>{props.component.comments[0]}</div>;
+            return <div className="row" style={{ height: "70px" }}></div>;
+            break;
+        case "B":
+            return <div></div>;
             break;
         default:
             return "not found";
