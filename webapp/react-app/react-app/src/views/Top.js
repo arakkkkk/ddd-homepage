@@ -3,6 +3,9 @@ import "static/css/top.css";
 import React, { useState, useEffect, useContext } from "react";
 import "fullpage.js/vendors/scrolloverflow";
 import ReactFullpage from "@fullpage/react-fullpage";
+import axios from "axios";
+import { GlobalContext } from "Global";
+import { useNavigate } from 'react-router';
 
 class FirstSlide extends React.Component {
     render() {
@@ -94,21 +97,14 @@ class ThirdSlide extends React.Component {
                 <img src="images/foods/foods.jpg" className="img-fluid bg-img" />
                 <span>
                     <h1>メニュー Menu</h1>
-                    <p>
-                        <a href="lunch.html">コース</a>
-                    </p>
-                    <p>
-                        <a href="lunch.html">料理</a>
-                    </p>
-                    <p>
-                        <a href="lunch.html">ドリンク</a>
-                    </p>
-                    <p>
-                        <a href="lunch.html">ランチ</a>
-                    </p>
-                    <p>
-                        <a href="lunch.html">テイクアウト</a>
-                    </p>
+
+                    {this.props.menus.map((service, index) => (
+                        <p>
+                            <a class="pointer" onClick={() => this.props.navigate("/home/service/"+service.ID+"/contents")} key={service.ID}>
+                                {service.Title}
+                            </a>
+                        </p>
+                    ))}
                 </span>
             </div>
         );
@@ -179,32 +175,49 @@ const LoadingPage = () => (
     </div>
 );
 
-const TopPage = () => (
-    <div class="toppage">
-        <ReactFullpage
-            licenseKey={"C5C881D6-81D74A73-AB857381-6D757637"}
-            render={({ state, fullpageApi }) => {
-                return (
-                    <div>
-                        <FirstSlide />
-                        <SecondSlide />
-                        <ThirdSlide />
-                        <FourthSlide />
-                    </div>
-                );
-            }}
-        />
-    </div>
-);
+const TopPage = (props) => {
+    const navigate = useNavigate();
+    return (
+        <div class="toppage">
+            <ReactFullpage
+                licenseKey={"C5C881D6-81D74A73-AB857381-6D757637"}
+                render={({ state, fullpageApi }) => {
+                    return (
+                        <div>
+                            <FirstSlide />
+                            <SecondSlide />
+                            <ThirdSlide menus={props.menus} navigate={navigate}/>
+                            <FourthSlide />
+                        </div>
+                    );
+                }}
+            />
+        </div>
+    )
+};
 
 const Top = () => {
+    const { ApiUrl, setApiUrl } = useContext(GlobalContext);
     const [Loading, setLoading] = useState(true);
-    setTimeout(() => setLoading(false), 2000);
+    const [ServicesGrouped, setServicesGrouped] = useState([]);
+
+    useEffect(() => {
+        axios.get("/api/services/list/grouped").then((results) => {
+            const data = results.data;
+            for (let d of data) {
+                d.Img = ApiUrl + "/api/image/" + d.Img;
+            }
+            setServicesGrouped(data);
+            console.log(data)
+        });
+        setTimeout(() => setLoading(false), 2000);
+    }, [ApiUrl]);
+
 
     if (Loading) {
         return <LoadingPage />;
     } else {
-        return <TopPage />;
+        return <TopPage menus={ServicesGrouped} />;
     }
 };
 export default Top;
