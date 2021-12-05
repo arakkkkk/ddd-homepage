@@ -4,7 +4,7 @@ export const RowSpace = (props) => {
             return <div className="row" style={{ height: "70px" }}></div>;
             break;
         case "B":
-            return <div></div>;
+            return <div style={{ minHeight: "20px" }}></div>;
             break;
         default:
             return "not found";

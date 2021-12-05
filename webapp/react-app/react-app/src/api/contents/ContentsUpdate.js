@@ -108,7 +108,7 @@ export const Contents = () => {
                         </a>
                         {Service.Components.map((component, index) => (
                             <div
-                                className={"col-sm-" + component.grid}
+                                className={"col-sm-" + component.Grid}
                                 onClick={() => openModal(component.ID)}
                                 style={{ whiteSpace: "pre-line", border: "4px solid", borderColor: "#031de2" }}
                             >

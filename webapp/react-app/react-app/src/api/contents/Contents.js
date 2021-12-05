@@ -38,7 +38,7 @@ export const Contents = () => {
                     <div className="row">
                         <h2>{Service.Title}</h2>
                         {Service.Components.map((component, index) => (
-                            <div className={"col-sm-" + component.grid} style={{ whiteSpace: "pre-line" }}>
+                            <div className={"col-sm-" + component.Grid} style={{ whiteSpace: "pre-line" }}>
                                 <CompRouting component={component} />
                             </div>
                         ))}
