@@ -42,7 +42,8 @@ const a = {
     padding: "0.4em 0.5em",
     color: "#fff",
     background: "#583F2A",
-    borderRadius: "5px"
+    borderRadius: "5px",
+    paddingLeft: "40px"
 };
 const a_b = {
     content: "",
