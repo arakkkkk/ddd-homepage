@@ -1,3 +1,6 @@
+ss:
+	sudo docker-compose -f ./webapp/docker-compose.yml build
+	sudo docker-compose -f ./proxy/docker-compose.yml build
 ba:
 	sudo docker-compose -f ./webapp/docker-compose.yml build
 sa:
