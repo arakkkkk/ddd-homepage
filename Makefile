@@ -7,6 +7,11 @@ ra:
 
 bg:
 	sudo docker-compose -f ./webapp/docker-compose.yml build go
+
+ss:
+	sudo docker-compose -f ./webapp/docker-compose.yml up
+	sudo docker-compose -f ./proxy/docker-compose.yml up
+
 sg:
 	sudo docker-compose -f ./webapp/docker-compose.yml build go
 	sudo docker-compose -f ./webapp/docker-compose.yml up -d go
