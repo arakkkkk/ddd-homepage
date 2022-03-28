@@ -45,6 +45,7 @@ services:
 
 
   mysql:
+    platform: linux/x86_64
     build:
       context: .
       dockerfile: ./docker/mysql/Dockerfile
@@ -100,8 +101,8 @@ services:
       - PMA_PASSWORD=paswd
     links:
       - mysql
-    ports:
-      - 1234:80
+    # ports:
+    #   - 1234:80
     volumes:
       - /sessions
     networks:
