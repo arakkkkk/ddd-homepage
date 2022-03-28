@@ -12,7 +12,7 @@ services:
 
       - VIRTUAL_HOST=localhost
       - LETSENCRYPT_HOST=localhost
-      - LETSENCRYPT_EMAIL=bdkouiti5013@gmail.com # Let's Encryptのメール設定
+      - LETSENCRYPT_EMAIL=testtest@gmail.com # Let's Encryptのメール設定
       - LETSENCRYPT_TEST=true # Let's Encryptのテストかどうかのフラグ 本番ではfalseにする (指定しないとテスト扱いになる)
       - CERT_NAME=default # ローカルで認証局を立てるときに使う ※本番ではLet's Encryptから直接取得するのでコメントアウトする
       - HTTPS_METHOD=noredirect # リダイレクトを無効にする
